@@ -1,0 +1,10 @@
+BEER:
+  - ID: 1
+    NAME: "Budweiser2"
+    TYPE: "PILSNER"
+  - ID: 2
+    NAME: "hertog2"
+    TYPE: "PILSNER"
+  - ID: 3
+    NAME: "Heineken"
+    TYPE: "PILSNER"
