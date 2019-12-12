@@ -43,7 +43,8 @@ class BeerCommandLineRunner implements CommandLineRunner {
     }
 
     private List<BlackList> createBlackList() {
-        return List.of(new BlackList("BUDWEISER"), new BlackList("HEINEKEN"), new BlackList("COORS LIGHT"), new BlackList("KAISER"));
+        return List.of(new BlackList("BUDWEISER"), new BlackList("HEINEKEN"), new BlackList("COORS LIGHT"),
+                new BlackList("KAISER"));
     }
 
 

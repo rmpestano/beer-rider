@@ -1,13 +1,14 @@
 package com.mobiquity.beer.rider.beer;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping(path = "/beers")
 class BeerController {
 
     private BeerService beerService;
@@ -16,10 +17,14 @@ class BeerController {
         this.beerService = service;
     }
 
-    @GetMapping("/good-beers")
-    @CrossOrigin(origins = "http://localhost:8081")
-    public Collection<Beer> goodBeers() {
 
+    @GetMapping
+    public List<Beer> allBeers() {
+        return beerService.findAll();
+    }
+
+    @GetMapping("/good-beers")
+    public List<Beer> goodBeers() {
         return beerService.findAll().stream()
                 .filter(beerService::isGreat)
                 .collect(Collectors.toList());

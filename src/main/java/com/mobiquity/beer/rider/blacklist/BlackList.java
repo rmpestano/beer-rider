@@ -3,6 +3,7 @@ package com.mobiquity.beer.rider.blacklist;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,12 +13,9 @@ import javax.persistence.Id;
  */
 @Data
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class BlackList {
-
-    public BlackList(String name) {
-        this.name = name;
-    }
 
     @Id
     @NonNull

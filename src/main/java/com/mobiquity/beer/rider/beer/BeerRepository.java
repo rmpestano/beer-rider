@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface BeerRepository extends JpaRepository<Beer, Long> {
 
     Long countByNameLike(String name);
+
 }
