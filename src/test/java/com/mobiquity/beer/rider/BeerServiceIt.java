@@ -36,7 +36,6 @@ import static org.assertj.core.api.Assertions.tuple;
 
 @SpringBootTest
 @ActiveProfiles("integration-test")
-@DBRider
 public class BeerServiceIt {
 
     @Autowired
@@ -52,27 +51,11 @@ public class BeerServiceIt {
     }
 
     @Test
-    @DataSet("beers.yml")
     public void shouldListBeers() throws SQLException {
-        //assertThat(beerService.countAll()).isEqualTo(0);
-        //beerService.save(new Beer("Test", BLONDE));
-        //beerService.save(new Beer("Test2", PILSNER));
-        assertThat(beerService.findAll()).hasSize(4);
-    }
-
-    @Test
-    public void shouldLeakConnections() throws SQLException {
-        DriverManager.getConnection("jdbc:h2:mem:beer-test;DB_CLOSE_ON_EXIT=FALSE", "sa", "");
-        DriverManager.getConnection("jdbc:h2:mem:beer-test;DB_CLOSE_ON_EXIT=FALSE", "sa", "");
-        DriverManager.getConnection("jdbc:h2:mem:beer-test;DB_CLOSE_ON_EXIT=FALSE", "sa", "");
-    }
-
-    @Test
-    @DataSet(cleanBefore = true)
-    @ExpectedDataSet(value = "beers-expected.yml")
-    public void shouldInsertBeers() {
+        assertThat(beerService.countAll()).isEqualTo(0);
         beerService.save(new Beer("Test", BLONDE));
         beerService.save(new Beer("Test2", PILSNER));
+        assertThat(beerService.findAll()).hasSize(2);
     }
 
     @Test
@@ -95,7 +78,6 @@ public class BeerServiceIt {
     }
 
     @Test
-    @ExportDataSet(outputName = "target/good-beers")
     public void shouldFindGreatBeers() {
         Beer leffe = new Beer("Leffe", BLONDE);
         Beer heineken = new Beer("Heineklen", PILSNER);
@@ -114,30 +96,6 @@ public class BeerServiceIt {
         assertThat(beerService.isGreat(heineken)).isEqualTo(false);
         assertThat(beerService.isGreat(budweiser)).isEqualTo(false);
 
-    }
-
-    public static class BeerProvider implements DataSetProvider {
-
-        @Override
-        public IDataSet provide() throws DataSetException {
-            DataSetBuilder builder = new DataSetBuilder();
-            return builder
-                    .table("BEER")
-                        .row()
-                    .column("ID", 1)
-                    .column("NAME", "Budweiser2")
-                    .column("TYPE", "PILSNER")
-                        .row()
-                    .column("ID", 2)
-                    .column("NAME", "hertog2")
-                    .column("TYPE", "PILSNER")
-                        .row()
-                    .column("ID", 3)
-                    .column("NAME", "Heineken")
-                    .column("TYPE", "PILSNER")
-                        .table("BLACK_LIST")
-                    .build();
-        }
     }
 
 }

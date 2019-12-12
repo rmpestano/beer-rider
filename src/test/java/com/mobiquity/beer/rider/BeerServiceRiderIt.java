@@ -2,30 +2,21 @@ package com.mobiquity.beer.rider;
 
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.DataSet;
-import com.github.database.rider.core.api.dataset.DataSetFormat;
 import com.github.database.rider.core.api.dataset.DataSetProvider;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import com.github.database.rider.core.api.exporter.BuilderType;
-import com.github.database.rider.core.api.exporter.ExportDataSet;
 import com.github.database.rider.core.dataset.builder.DataSetBuilder;
-import com.github.database.rider.core.leak.LeakHunterException;
 import com.github.database.rider.junit5.api.DBRider;
 import com.mobiquity.beer.rider.beer.Beer;
 import com.mobiquity.beer.rider.beer.BeerService;
-import com.mobiquity.beer.rider.blacklist.BlackList;
 import com.mobiquity.beer.rider.blacklist.BlackListRepository;
-import org.assertj.core.api.Assertions;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
-import org.h2.Driver;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import javax.sql.DataSource;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
@@ -84,6 +75,19 @@ public class BeerServiceRiderIt {
     }
 
     @Test
+    @DataSet(provider = GreatBeerProvider.class)
+    public void shouldFindGreatBeersUsingProvider() {
+        assertThat(beerService.countAll()).isEqualTo(3);
+        assertThat(blackListRepository.count()).isEqualTo(2);
+        Beer leffe = new Beer("Leffe", BLONDE);
+        Beer heineken = new Beer("Heineklen", PILSNER);
+        Beer budweiser = new Beer("Budweiser", PILSNER);
+        assertThat(beerService.isGreat(leffe)).isEqualTo(true);
+        assertThat(beerService.isGreat(heineken)).isEqualTo(false);
+        assertThat(beerService.isGreat(budweiser)).isEqualTo(false);
+    }
+
+    @Test
     @Disabled
     public void shouldLeakConnections() throws SQLException {
         DriverManager.getConnection("jdbc:h2:mem:beer-test;DB_CLOSE_ON_EXIT=FALSE", "sa", "");
@@ -92,16 +96,16 @@ public class BeerServiceRiderIt {
     }
 
 
-    public static class BeerProvider implements DataSetProvider {
+    public static class GreatBeerProvider implements DataSetProvider {
         @Override
         public IDataSet provide() throws DataSetException {
             DataSetBuilder builder = new DataSetBuilder();
             return builder
                     .table("BEER")
                     .columns("ID", "NAME", "TYPE")
-                        .values(1, "Leffe", "BLONDE")
-                        .values(2, "Heineklen", "PILSNER")
-                        .values(3, "Budweiser", "PILSNER")
+                        .values(1, "Leffe", BLONDE.name())
+                        .values(2, "Heineklen", PILSNER.name())
+                        .values(3, "Budweiser", PILSNER.name())
                     .table("BLACK_LIST")
                     .columns("NAME")
                         .values("Budweiser")
