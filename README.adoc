@@ -1,0 +1,15 @@
+= Beer Rider
+
+
+A simple SpringBoot project with integration tests using https://github.com/database-rider/database-rider[DatabaseRider^] and https://junit.org/junit5/docs/current/user-guide/[JUnit5^].
+
+image:https://travis-ci.org/rmpestano/beer-rider.svg[Build Status (Travis CI), link=https://travis-ci.org/rmpestano/beer-rider]
+
+== Running test
+
+Just run the maven command:
+
+----
+mvn clean test
+----
+
