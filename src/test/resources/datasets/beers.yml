@@ -8,3 +8,6 @@ BEER:
   - ID: 3
     NAME: "Heineken"
     TYPE: "PILSNER"
+  - ID: 4
+    NAME: "js:'Beer'.concat(Math.round(Math.random() * 10))"
+    TYPE: "PILSNER"

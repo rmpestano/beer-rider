@@ -1,0 +1,10 @@
+BEER:
+  - ID: "regex:\\d"
+    NAME: "Test"
+    TYPE: "BLONDE"
+  - ID: "regex:\\d"
+    NAME: "Test2"
+    TYPE: "PILSNER"
+
+BLACK_LIST:
+

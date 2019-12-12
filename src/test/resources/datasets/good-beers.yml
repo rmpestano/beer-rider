@@ -1,0 +1,15 @@
+BEER:
+  - ID: 5
+    NAME: "Leffe"
+    TYPE: "BLONDE"
+  - ID: 6
+    NAME: "Heineklen"
+    TYPE: "PILSNER"
+  - ID: 7
+    NAME: "Budweiser"
+    TYPE: "PILSNER"
+
+BLACK_LIST:
+  - NAME: "Budweiser"
+  - NAME: "Heineklen"
+

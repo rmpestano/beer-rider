@@ -6,14 +6,14 @@ import com.mobiquity.beer.rider.beer.BeerType;
 import com.mobiquity.beer.rider.blacklist.BlackList;
 import com.mobiquity.beer.rider.blacklist.BlackListRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 
-import static com.mobiquity.beer.rider.beer.BeerType.*;
+import static com.mobiquity.beer.rider.beer.BeerType.BLONDE;
+import static com.mobiquity.beer.rider.beer.BeerType.PILSNER;
 
 @Component
 @Slf4j
