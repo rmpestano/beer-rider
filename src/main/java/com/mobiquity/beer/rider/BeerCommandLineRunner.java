@@ -38,13 +38,13 @@ class BeerCommandLineRunner implements CommandLineRunner {
     }
 
     private List<String> createBeers() {
-        return List.of("Budweiser:" + PILSNER, "hertog:" + PILSNER,
+        return List.of("Budweiser:" + PILSNER, "Kaiser:" + PILSNER, "Hertog:" + PILSNER,
                 "Leffe:" + BLONDE);
     }
 
     private List<BlackList> createBlackList() {
-        return List.of(new BlackList("BUDWEISER"), new BlackList("HEINEKEN"), new BlackList("COORS LIGHT"),
-                new BlackList("KAISER"));
+        return List.of(new BlackList("Budweiser"), new BlackList("Heineken"), new BlackList("Coors Light"),
+                new BlackList("Kaiser"));
     }
 
 
